@@ -2,8 +2,7 @@
 import { Input } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 
-
-export default function EditableCell({ getValue, row, column, table }: Edit) {
+export default function Days({ getValue, row, column, table }: any) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
   const onBlur = () => {
@@ -19,6 +18,7 @@ export default function EditableCell({ getValue, row, column, table }: Edit) {
       value={value}
       onChange={(e) => setValue(e.target.value)}
       onBlur={onBlur}
+      textAlign="center"
       variant="filled"
       size="sm"
       w="85%"

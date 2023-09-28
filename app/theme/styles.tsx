@@ -14,6 +14,11 @@ const styles = {
     ".tr": {
       display: "flex",
       width: "fit-content",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center",
+
+      bg: "#404040",
     },
     ".th, .td": { boxShadow: "inset 0 0 0 1px #424242" },
     ".th": {
@@ -21,12 +26,11 @@ const styles = {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      color: "gray.400",
+      color: "gray.200",
       padding: "0.5rem",
-      fontWeight: "bold",
-      fontSize: "xs",
-      textTransform: "uppercase",
+      fontSize: "s",
       textAlign: "center",
+      background: "#1a1a1a",
     },
     ".td > input": {
       m: "1",

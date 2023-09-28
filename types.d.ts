@@ -4,3 +4,9 @@ type Colums = {
   size?: number;
   cell?: any;
 };
+type Edit = {
+  getValue: any;
+  row: Array;
+  column: Array;
+  table: any;
+};

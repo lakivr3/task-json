@@ -1,7 +1,6 @@
 "use client";
 import {
   useReactTable,
-  createColumnHelper,
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
@@ -9,35 +8,82 @@ import { ReactNode, useState } from "react";
 import DATA from "../../data/data";
 import { Box } from "@chakra-ui/react";
 import EditableCell from "./EditableCell";
-import Status from "./Status";
-import Date from "./Date";
+import Task from "./Task";
+import Done from "./Done";
+import TaskTotal from "./TaskTotal";
+import Days from "./Days";
+import { BsFillPlusSquareFill } from "react-icons/bs";
 const columns: Colums[] = [
+  {
+    accessorKey: "project",
+    header: "Project",
+    size: 230,
+
+    cell: EditableCell,
+  },
   {
     accessorKey: "task",
     header: "Task",
     size: 300,
-    cell: EditableCell,
+    cell: Task,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-    cell: Status,
+    accessorKey: "mon",
+    header: "Mon",
+    size: 100,
+    cell: Days,
   },
   {
-    accessorKey: "due",
-    header: "Due",
-    size: 300,
-    cell: Date,
+    accessorKey: "tue",
+    header: "Tue",
+    size: 100,
+    cell: Days,
   },
   {
-    accessorKey: "notes",
-    header: "Notes",
+    accessorKey: "wed",
+    header: "Wed",
+    size: 100,
+    cell: Days,
+  },
+  {
+    accessorKey: "thu",
+    header: "Thu",
+    size: 100,
+    cell: Days,
+  },
+  {
+    accessorKey: "fri",
+    header: "Fri",
+    size: 100,
+    cell: Days,
+  },
+  {
+    accessorKey: "sat",
+    header: "Sat",
+    size: 100,
+    cell: Days,
+  },
+  {
+    accessorKey: "sun",
+    header: "Sun",
+    size: 100,
+    cell: Days,
+  },
+  {
+    accessorKey: "done",
+    header: "Done",
+    cell: Done,
+  },
+  {
+    accessorKey: "tasktotal",
+    header: "Task total",
 
-    cell: (props: any): any => <p>{props.getValue()}</p>,
+    cell: TaskTotal,
   },
 ];
 
 export default function Table() {
+  // const handleClicked = await() => {}
   const [data, setData] = useState(DATA);
 
   const table = useReactTable({
@@ -60,12 +106,11 @@ export default function Table() {
         ),
     },
   });
-  //   console.log(data);
   return (
     <Box>
       <Box className="table" w={table.getTotalSize()}>
         {table.getHeaderGroups().map((headerGroup) => (
-          <Box key={headerGroup.id} className="tr ">
+          <Box key={headerGroup.id} className="tr">
             {headerGroup.headers.map((header) => (
               <Box key={header.id} className="th" w={header.getSize()}>
                 {header.column.columnDef.header as ReactNode}
@@ -86,6 +131,10 @@ export default function Table() {
               <Box
                 color="white"
                 key={cell.id}
+                textAlign="center"
+                background={
+                  cell.column.columnDef.cell == "mon" ? "gray.500" : ""
+                }
                 className="td"
                 w={cell.column.getSize()}
               >
@@ -95,6 +144,7 @@ export default function Table() {
           </Box>
         ))}
       </Box>
+      {/* <BsFillPlusSquareFill size="2rem" color="white" /> */}
     </Box>
   );
 }

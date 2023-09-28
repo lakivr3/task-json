@@ -13,58 +13,114 @@ export const STATUSES = [
   STATUS_DEPLOYED,
 ];
 type DataType = {
-  task: string;
-  status: {
-    id: number;
-    name: string;
-    color: string;
-  } | null;
-  due: Date | null;
-  notes: string;
+  project: string;
+  task: {
+    value: string;
+    label: string;
+  };
+  mon: number;
+  tue: number;
+  wed: number;
+  thu: number;
+  fri: number;
+  sat: number;
+  sun: number;
+  done: boolean;
+  tasktotal: number;
 };
 
-const DATA:DataType[] = [
+const DATA: DataType[] = [
   {
-    task: "Add a New Feature",
-    status: STATUS_ON_DECK ,
-    due: new Date("2023/10/15"),
-    notes: "This is a note",
+    project: "Dashboard",
+    task: { value: "Project1", label: "Project1" },
+    mon: 0,
+    tue: 1,
+    wed: 2,
+    thu: 0,
+    fri: 0,
+    sat: 0,
+    sun: 0,
+    done: false,
+    get tasktotal() {
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
   {
-    task: "Write Integration Tests",
-    status: STATUS_IN_PROGRESS,
-    due: null,
-    notes: "Use Jest",
+    project: "Dashboard",
+    task: { value: "Project2", label: "Project2" },
+    mon: 0,
+    tue: 0,
+    wed: 0,
+    thu: 0,
+    fri: 0,
+    sat: 0,
+    sun: 0,
+    done: true,
+    get tasktotal() {
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
   {
-    task: "Add Instagram Integration",
-    status: STATUS_DEPLOYED,
-    due: null,
-    notes: "",
+    project: "Dashboard",
+    task: { value: "Project3", label: "Project3" },
+    mon: 0,
+    tue: 0,
+    wed: 0,
+    thu: 0,
+    fri: 0,
+    sat: 0,
+    sun: 0,
+    done: false,
+    get tasktotal() {
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
   {
-    task: "Cleanup Database",
-    status: null,
-    due: new Date("2023/02/15"),
-    notes: "Remove old data",
-  },
-  {
-    task: "Refactor API Endpoints",
-    status: STATUS_TESTING,
-    due: null,
-    notes: "",
-  },
-  {
-    task: "Add Documentation to API",
-    status: null,
-    due: new Date("2023/09/12"),
-    notes: "Add JS Docs to all endpoints",
-  },
-  {
-    task: "Update NPM Packages",
-    status: STATUS_IN_PROGRESS,
-    due: null,
-    notes: "Upgrade React & Chakra UI",
+    project: "",
+    task: { value: "Project4", label: "Project4" },
+    mon: 0,
+    tue: 0,
+    wed: 0,
+    thu: 0,
+    fri: 0,
+    sat: 0,
+    sun: 0,
+    done: true,
+    get tasktotal() {
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
 ];
 
