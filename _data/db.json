@@ -1,7 +1,62 @@
 {
-    "Data" : [
-        {
-
-        }
-    ]
+  "data": [
+    {
+      "id":1,
+      "project": "Dashboard",
+      "task": [
+        { "value": "Project1", "label": "Project1" },
+        { "value": "Project2", "label": "Project2" },
+        { "value": "Project3", "label": "Project3" },
+        { "value": "Project4", "label": "Project4" }
+      ],
+      
+      "mon": 0,
+      "tue": 1,
+      "wed": 2,
+      "thu": 0,
+      "fri": 0,
+      "sat": 0,
+      "sun": 0,
+      "done": true,
+      "tasktotal": 0
+    },
+    {
+      "id":2,
+      "project": "Dashboard",
+      "task": [
+        { "value": "Project1", "label": "Project1" },
+        { "value": "Project2", "label": "Project2" },
+        { "value": "Project3", "label": "Project3" },
+        { "value": "Project4", "label": "Project4" }
+      ],
+      "mon": 0,
+      "tue": 1,
+      "wed": 2,
+      "thu": 0,
+      "fri": 0,
+      "sat": 0,
+      "sun": 0,
+      "done": false,
+      "tasktotal": 0
+    },
+    {
+      "id":3,
+      "project": "Dashboard",
+      "task": [
+        { "value": "Project1", "label": "Project1" },
+        { "value": "Project2", "label": "Project2" },
+        { "value": "Project3", "label": "Project3" },
+        { "value": "Project4", "label": "Project4" }
+      ],
+      "mon": 0,
+      "tue": 1,
+      "wed": 2,
+      "thu": 0,
+      "fri": 0,
+      "sat": 0,
+      "sun": 0,
+      "done": false,
+      "tasktotal": 0
+    }
+  ]
 }

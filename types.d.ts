@@ -2,6 +2,8 @@ type Colums = {
   accessorKey: string;
   header: string;
   size?: number;
+  color?: string;
+  row?: any;
   cell?: any;
 };
 type Edit = {
@@ -9,4 +11,5 @@ type Edit = {
   row: Array;
   column: Array;
   table: any;
+  setValue: any;
 };

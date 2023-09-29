@@ -9,7 +9,7 @@ const styles = {
       cursor: "pointer",
     },
     ".table": {
-      border: "1px solid #424242",
+      border: "1px solid black",
     },
     ".tr": {
       display: "flex",
@@ -30,7 +30,7 @@ const styles = {
       padding: "0.5rem",
       fontSize: "s",
       textAlign: "center",
-      background: "#1a1a1a",
+      background: "#262626",
     },
     ".td > input": {
       m: "1",

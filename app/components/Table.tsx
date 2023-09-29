@@ -5,14 +5,15 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import { ReactNode, useState } from "react";
-import DATA from "../../data/data";
 import { Box } from "@chakra-ui/react";
 import EditableCell from "./EditableCell";
 import Task from "./Task";
 import Done from "./Done";
 import TaskTotal from "./TaskTotal";
 import Days from "./Days";
-import { BsFillPlusSquareFill } from "react-icons/bs";
+import DataRow from "@/_data/db.json";
+import DATA from "@/data/data";
+
 const columns: Colums[] = [
   {
     accessorKey: "project",
@@ -25,6 +26,7 @@ const columns: Colums[] = [
     accessorKey: "task",
     header: "Task",
     size: 300,
+    color: "white",
     cell: Task,
   },
   {
@@ -72,25 +74,23 @@ const columns: Colums[] = [
   {
     accessorKey: "done",
     header: "Done",
+    size: 5,
     cell: Done,
   },
   {
     accessorKey: "tasktotal",
     header: "Task total",
-
     cell: TaskTotal,
   },
 ];
 
 export default function Table() {
-  // const handleClicked = await() => {}
   const [data, setData] = useState(DATA);
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    enableColumnResizing: true,
     columnResizeMode: "onChange",
     meta: {
       updateData: (rowIndex: number, columnId: number, value: number) =>

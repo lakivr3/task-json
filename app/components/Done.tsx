@@ -7,10 +7,12 @@ export default function Done({ getValue, table, row, column }: any) {
   const onBlur = () => {
     table.options.meta?.updateData(row.index, column.id, value);
   };
-
+  console.log(getValue(row));
+  
   return (
     <div>
       <Checkbox
+        background="whitesmoke"
         onBlur={onBlur}
         defaultChecked={value}
         onClick={() => setValue((prev: boolean) => !prev)}

@@ -1,15 +1,9 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import DataRow from "@/_data/db.json";
+
 export default function DaysHook() {
-  const [hours, setHours] = useState({
-    mon: null,
-    tue: null,
-    wed: null,
-    thu: null,
-    fri: null,
-    sat: null,
-    sun: null,
-  });
-  
-  
-  return {hours, setHours};
+  const [total, setTotal] = useState([1, 2]);
+  // const sumDays = total.reduce((a, b) => a + b);
+
+  return { total, setTotal };
 }
