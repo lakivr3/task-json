@@ -1,3 +1,24 @@
+import { Column, Row, Table } from "@tanstack/react-table";
+type DataType = {
+  project: string;
+  task: string;
+  mon: number;
+  tue: number;
+  wed: number;
+  thu: number;
+  fri: number;
+  sat: number;
+  sun: number;
+  done: boolean;
+  tasktotal: string | number;
+};
+type TData = {
+  data: DataType[];
+  columns: Colums[];
+  getCoreRowModel: any;
+  columnResizeMode: string;
+  meta: any;
+}
 type Colums = {
   accessorKey: string;
   header: string;
@@ -6,10 +27,10 @@ type Colums = {
   row?: any;
   cell?: any;
 };
-type Edit = {
-  getValue: any;
-  row: Array;
-  column: Array;
-  table: any;
-  setValue: any;
-};
+type EditProp = {
+  getValue: () => any;
+  getColumn: (id: string) => Column<TData> | undefined
+  row: Row <TData>;
+  column: Column<TData>; 
+  table: TData<Table>;
+}

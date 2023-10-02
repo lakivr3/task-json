@@ -1,32 +1,17 @@
+import { DataType } from "@/types";
+
 type Task = {
   value: string;
   label: string;
 };
 
-type DataType = {
-  project: string;
-  task: Task[];
-  mon: number;
-  tue: number;
-  wed: number;
-  thu: number;
-  fri: number;
-  sat: number;
-  sun: number;
-  done: boolean;
-  tasktotal: number;
-};
+
 
 const DATA: DataType[] = [
   {
     project: "Dashboard",
-    task: [
-      { value: "Project1", label: "Project1" },
-      { value: "Project2", label: "Project2" },
-      { value: "Project3", label: "Project3" },
-      { value: "Project4", label: "Project4" },
-    ],
-    mon: 0,
+    task: '',
+    mon: 1,
     tue: 1,
     wed: 2,
     thu: 3,
@@ -48,12 +33,7 @@ const DATA: DataType[] = [
   },
   {
     project: "Dashboard",
-    task: [
-      { value: "Project1", label: "Project1" },
-      { value: "Project2", label: "Project2" },
-      { value: "Project3", label: "Project3" },
-      { value: "Project4", label: "Project4" },
-    ],
+    task: '',
     mon: 0,
     tue: 0,
     wed: 0,
@@ -76,12 +56,7 @@ const DATA: DataType[] = [
   },
   {
     project: "Dashboard",
-    task: [
-      { value: "Project1", label: "Project1" },
-      { value: "Project2", label: "Project2" },
-      { value: "Project3", label: "Project3" },
-      { value: "Project4", label: "Project4" },
-    ],
+    task: '',
     mon: 0,
     tue: 0,
     wed: 0,
@@ -104,12 +79,7 @@ const DATA: DataType[] = [
   },
   {
     project: "",
-    task: [
-      { value: "Project1", label: "Project1" },
-      { value: "Project2", label: "Project2" },
-      { value: "Project3", label: "Project3" },
-      { value: "Project4", label: "Project4" },
-    ],
+    task: '',
     mon: 0,
     tue: 0,
     wed: 0,

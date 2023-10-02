@@ -2,29 +2,33 @@
 import { Input } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import DaysHook from "../hooks/DaysHook";
+import { DataType } from "@/types";
+import { CellContext } from "@tanstack/react-table";
 
-export default function Days({ getValue, row, column, table }: any) {
+export default function Days({ getValue,  row, column, table }: CellContext<DataType, any> ) {
+
+
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
   const { total, setTotal } = DaysHook();
-  const { updateData } = table.options.meta;
-  console.log(initialValue);
-  useEffect(() => {
-    setTotal(initialValue);
-  });
+  // const { updateData } = table.options.meta;
   const onBlur = () => {
-    table.options.meta?.updateData(row.index, column.id, value);
+    // updateData(row.index, column.id, parseInt(value));
+    
+    
   };
-  console.log(total);
+  useEffect(() => {
+    setValue( initialValue);
+  }, [initialValue]);
   return (
     <Input
-      value={value === 0 ? "" : value}
+      value={value === 0 ? "" : parseInt(value)}
       onChange={(e) => setValue(e.target.value)}
       onBlur={onBlur}
       textAlign="center"
       variant="filled"
       size="sm"
-      w="85%"
+      w="80%"
       overflow="hidden"
       textOverflow="ellipsis"
       whiteSpace="nowrap"

@@ -3,6 +3,9 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
+  ColumnDef,
+  Column,
+  Table,
 } from "@tanstack/react-table";
 import { ReactNode, useState } from "react";
 import { Box } from "@chakra-ui/react";
@@ -11,29 +14,31 @@ import Task from "./Task";
 import Done from "./Done";
 import TaskTotal from "./TaskTotal";
 import Days from "./Days";
-import DataRow from "@/_data/db.json";
 import DATA from "@/data/data";
+import DaysHook from "../hooks/DaysHook";
+import dataRow from "../../_data/db.json"
+import { Colums, DataType, TData } from "@/types";
 
-const columns: Colums[] = [
+
+const columns: ColumnDef<DataType, any>[]   = [
   {
     accessorKey: "project",
     header: "Project",
     size: 230,
-
+    
     cell: EditableCell,
   },
   {
     accessorKey: "task",
     header: "Task",
     size: 300,
-    color: "white",
     cell: Task,
   },
   {
     accessorKey: "mon",
     header: "Mon",
     size: 100,
-    cell: Days,
+    cell:  Days,
   },
   {
     accessorKey: "tue",
@@ -87,13 +92,13 @@ const columns: Colums[] = [
 export default function Table() {
   const [data, setData] = useState(DATA);
 
-  const table = useReactTable({
+  const table  = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     columnResizeMode: "onChange",
     meta: {
-      updateData: (rowIndex: number, columnId: number, value: number) =>
+      updateData: (rowIndex: number | string, columnId: number | string, value: number | string) =>
         setData((prev) =>
           prev.map((row, index) =>
             index === rowIndex
@@ -104,8 +109,13 @@ export default function Table() {
               : row
           )
         ),
+      
+  
     },
+    
+    
   });
+  console.log(data)
   return (
     <Box>
       <Box className="table" w={table.getTotalSize()}>

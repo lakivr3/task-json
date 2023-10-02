@@ -1,24 +1,25 @@
 "use client";
+import { DataType, EditProp } from "@/types";
 import { Input } from "@chakra-ui/react";
+import { CellContext } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
-import DATA from "@/data/data";
 
-export default function EditableCell({ getValue, row, column, table }: Edit) {
+export default function EditableCell({row, column, getValue, table}: CellContext<DataType, any>) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
-  const handleChange = async () => {
+  const handleChange =  () => {
+    // console.log(column.id)
+    // console.log(getValue())
     // table.options.meta?.updateData(row.index, column.id, value);
-    const response = await fetch(`http://localhost:4000/data/`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ project: value }),
-    });
+    
   };
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
+  
   return (
     <Input
+      id={value}
       value={value}
       onChange={(e) => setValue(e.target.value)}
       onBlur={handleChange}

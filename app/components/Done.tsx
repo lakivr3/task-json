@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup } from "@chakra-ui/react";
+import { Checkbox } from "@chakra-ui/react";
 import { useState } from "react";
 
 export default function Done({ getValue, table, row, column }: any) {
@@ -7,7 +7,6 @@ export default function Done({ getValue, table, row, column }: any) {
   const onBlur = () => {
     table.options.meta?.updateData(row.index, column.id, value);
   };
-  console.log(getValue(row));
   
   return (
     <div>

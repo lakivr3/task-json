@@ -1,14 +1,24 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import DaysHook from "../hooks/DaysHook";
+import { DataType, EditProp } from "@/types";
+import { CellContext } from "@tanstack/react-table";
+import {  } from "./Table";
 
-export default function TaskTotal({ getValue, row, column, table }: any) {
-  const initialValue = getValue();
-  const [value, setValue] = useState(initialValue);
-  const { updateData } = table.options.meta;
+export default function TaskTotal({row}: CellContext<DataType, any>) {
+  // const initialValue = getValue();
+  // let [value, setValue] = useState(initialValue);
+  // const {total,setTotal} = DaysHook()
+  // const {updateData} = table.options.meta
 
+  // useEffect(() => {
+  //   updateData(row.index, column.id, parseInt(value));
+  //   setValue(initialValue);
+  // }, [initialValue]);
 
-  // filter = data.filter((element: any) => typeof element === "number");
+  const a = useMemo(()=> {
+    return row.original.mon
+  }, [row])
 
-  return <span>{value}</span>;
+  return <span>{a}</span>;
 }

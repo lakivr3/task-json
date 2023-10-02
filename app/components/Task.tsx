@@ -1,24 +1,24 @@
 "use client";
 
-import { Input } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { ChangeEvent, useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
+import { DataType, EditProp } from "@/types";
+import { CellContext } from "@tanstack/react-table";
 
-const ColorIcon = ({ color, ...props }: { color: string }) => {
-  return <Box w="12px" h="12px" bg={color} borderRadius="3px" {...props}></Box>;
-};
 
-export default function Task({ getValue, row, column, table }: Edit) {
+
+export default function Task({ getValue, row, column, table }: CellContext<DataType, any>) {
   const data = getValue();
   const [value, setValue] = useState(data);
-  const { updateData } = table.options.meta;
-
-  const colorStyless = {};
+  const options: any = [{value:"project1", label:"Project1"},
+        {value:"project2", label:"Project2"},
+        {value:"project3", label:"Project3"}]
+  const [task,setTask] = useState('')
+  // const { updateData } = table.options.meta;
 
   const handleChange = () => {
-    updateData(row.index, column.id, value);
-    console.log(updateData());
+    // updateData(row.index, column.id, value);
+    setTask
   };
   return (
     <CreatableSelect
@@ -67,9 +67,11 @@ export default function Task({ getValue, row, column, table }: Edit) {
         },
       })}
       
+      
+      
       isClearable
-      onChange={handleChange}
-      options={value}
+      options={options}
+      
     />
   );
 }
