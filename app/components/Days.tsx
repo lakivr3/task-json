@@ -1,7 +1,6 @@
 "use client";
 import { Input } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import DaysHook from "../hooks/DaysHook";
 import { DataType } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 
@@ -9,16 +8,19 @@ export default function Days({ getValue,  row, column, table }: CellContext<Data
 
 
   const initialValue = getValue();
-  const [value, setValue] = useState(initialValue);
-  const { total, setTotal } = DaysHook();
-  // const { updateData } = table.options.meta;
+  let [value, setValue] = useState(initialValue);
+  const { updateData } = table.options.meta as any;
   const onBlur = () => {
-    // updateData(row.index, column.id, parseInt(value));
-    
-    
+    updateData(row.index, column.id, parseInt(value))
+    console.log(value)
   };
+  
+  
   useEffect(() => {
-    setValue( initialValue);
+    setValue(initialValue);
+    
+    
+    
   }, [initialValue]);
   return (
     <Input

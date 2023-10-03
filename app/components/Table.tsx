@@ -6,6 +6,7 @@ import {
   ColumnDef,
   Column,
   Table,
+  TableMeta,
 } from "@tanstack/react-table";
 import { ReactNode, useState } from "react";
 import { Box } from "@chakra-ui/react";

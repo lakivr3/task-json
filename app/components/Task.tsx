@@ -2,24 +2,51 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import CreatableSelect from "react-select/creatable";
-import { DataType, EditProp } from "@/types";
-import { CellContext } from "@tanstack/react-table";
-
+import { DataType, EditProp, TData } from "@/types";
+import { CellContext, TableMeta } from "@tanstack/react-table";
+interface Options  {
+  value:string,
+  label:string,
+}
 
 
 export default function Task({ getValue, row, column, table }: CellContext<DataType, any>) {
+  const createOption = (label: string) => ({
+    label,
+    value: label.toLowerCase().replace(/\W/g, '')
+  })
+
+  const defaultOptions = [
+    createOption('Add colors to website'),
+    createOption('Build REST'),
+    createOption('Blabla'),
+  ]
+
+
   const data = getValue();
   const [value, setValue] = useState(data);
-  const options: any = [{value:"project1", label:"Project1"},
-        {value:"project2", label:"Project2"},
-        {value:"project3", label:"Project3"}]
-  const [task,setTask] = useState('')
-  // const { updateData } = table.options.meta;
+  const [isLoading, setIsLoading] = useState(false);
+  const [options, setOptions] = useState(defaultOptions);
+  const [taskValue,setTaskValue] = useState<Options | null>()
 
-  const handleChange = () => {
-    // updateData(row.index, column.id, value);
-    setTask
-  };
+  
+  const { updateData } = table.options.meta as any
+
+  const handleCreate = (inputValue: string) => {
+    setIsLoading(true)
+    setTimeout(()=> {
+      const newOption = createOption(inputValue)
+      setIsLoading(false)
+      setTaskValue(newOption)
+      setOptions((prev)=> [...prev,newOption])
+      
+    },1000)
+    
+  }
+
+  // const handleChange = () => {
+  //   updateData(row.index, column.id, value);
+  // };
   return (
     <CreatableSelect
       styles={{
@@ -66,11 +93,13 @@ export default function Task({ getValue, row, column, table }: CellContext<DataT
           primary: "neutral150",
         },
       })}
-      
-      
-      
       isClearable
+      isDisabled={isLoading}
+      isLoading={isLoading}
+      onChange={(newValue) => {setTaskValue(newValue),updateData(row.index, column.id, newValue)}}
+      onCreateOption={handleCreate}
       options={options}
+      value={taskValue}
       
     />
   );

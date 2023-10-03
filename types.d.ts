@@ -17,7 +17,10 @@ type TData = {
   columns: Colums[];
   getCoreRowModel: any;
   columnResizeMode: string;
-  meta: any;
+  meta: {
+    updateData: (rowIndex: number | string, columnId: number | string, value: number | string)=> any
+  }
+  
 }
 type Colums = {
   accessorKey: string;

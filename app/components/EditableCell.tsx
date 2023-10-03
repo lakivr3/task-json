@@ -7,10 +7,11 @@ import { useState, useEffect } from "react";
 export default function EditableCell({row, column, getValue, table}: CellContext<DataType, any>) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
+  const {updateData} = table.options.meta as any
   const handleChange =  () => {
     // console.log(column.id)
     // console.log(getValue())
-    // table.options.meta?.updateData(row.index, column.id, value);
+    updateData(row.index, column.id, value)
     
   };
   useEffect(() => {
