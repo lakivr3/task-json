@@ -10,7 +10,7 @@ type DataType = {
   sat: number;
   sun: number;
   done: boolean;
-  tasktotal: string | number;
+  tasktotal?: number;
 };
 type TData = {
   data: DataType[];

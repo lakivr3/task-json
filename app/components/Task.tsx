@@ -39,35 +39,37 @@ export default function Task({ getValue, row, column, table }: CellContext<DataT
       setIsLoading(false)
       setTaskValue(newOption)
       setOptions((prev)=> [...prev,newOption])
+      updateData(row.index, column.id, newOption)
       
     },1000)
     
   }
 
-  // const handleChange = () => {
+  // const handleChange = (e: ChangeEvent<HTMLOptionElement>) => {
+    
   //   updateData(row.index, column.id, value);
   // };
   return (
     <CreatableSelect
       styles={{
-        container: (baseStyles, state) => ({
+        container: (baseStyles) => ({
           ...baseStyles,
           background: "#262626",
           margin: "0.5rem",
           marginLeft: "1rem",
           marginRight: "1rem",
         }),
-        input: (baseStyles, state) => ({
+        input: (baseStyles) => ({
           ...baseStyles,
 
           color: "#fff",
         }),
-        placeholder: (baseStyle, state) => ({
+        placeholder: (baseStyle) => ({
           ...baseStyle,
           color: "#fff",
           textAlign: "start",
         }),
-        singleValue: (baseStyle, state) => ({
+        singleValue: (baseStyle) => ({
           ...baseStyle,
           color: "#fff",
           textAlign: "start",
@@ -96,7 +98,7 @@ export default function Task({ getValue, row, column, table }: CellContext<DataT
       isClearable
       isDisabled={isLoading}
       isLoading={isLoading}
-      onChange={(newValue) => {setTaskValue(newValue),updateData(row.index, column.id, newValue)}}
+      onChange={(newValue) => {setTaskValue(newValue);updateData(row.index, column.id, newValue)}}
       onCreateOption={handleCreate}
       options={options}
       value={taskValue}

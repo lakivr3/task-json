@@ -19,7 +19,9 @@ const DATA: DataType[] = [
     sat: 0,
     sun: 0,
     done: false,
-    tasktotal:''
+    get tasktotal() {
+      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
+    }
   },
   {
     project: "Dashboard",
@@ -32,7 +34,9 @@ const DATA: DataType[] = [
     sat: 0,
     sun: 0,
     done: true,
-    tasktotal:''
+    get tasktotal() {
+      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
+    }
   },
   {
     project: "Dashboard",
@@ -45,7 +49,9 @@ const DATA: DataType[] = [
     sat: 0,
     sun: 0,
     done: false,
-    tasktotal:''
+    get tasktotal() {
+      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
+    }
   },
   {
     project: "",
@@ -58,7 +64,9 @@ const DATA: DataType[] = [
     sat: 0,
     sun: 0,
     done: true,
-    tasktotal:''
+    get tasktotal() {
+      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
+    }
   },
 ];
 
