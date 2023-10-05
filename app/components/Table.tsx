@@ -4,9 +4,7 @@ import {
   getCoreRowModel,
   flexRender,
   ColumnDef,
-  Column,
   Table,
-  TableMeta,
 } from "@tanstack/react-table";
 import { ReactNode, useState } from "react";
 import { Box } from "@chakra-ui/react";
@@ -16,9 +14,9 @@ import Done from "./Done";
 import TaskTotal from "./TaskTotal";
 import Days from "./Days";
 import DATA from "@/data/data";
-import DaysHook from "../hooks/DaysHook";
 import dataRow from "../../_data/db.json"
 import { Colums, DataType, TData } from "@/types";
+import taskHook from "../hooks/taskHook";
 
 
 const columns: ColumnDef<DataType, any>[]   = [
@@ -90,8 +88,11 @@ const columns: ColumnDef<DataType, any>[]   = [
   },
 ];
 
+
 export default function Table() {
+  const {options,setOptions} = taskHook()
   const [data, setData] = useState(DATA);
+  
 
   const table  = useReactTable({
     data,
@@ -110,9 +111,25 @@ export default function Table() {
               : row
           )
         ),
-      
-  
+      addRow: () => {
+          const newRow: DataType = {
+              project: "",
+              task:"" ,
+              mon: 0,
+              tue: 0,
+              wed: 0,
+              thu: 0,
+              fri: 0,
+              sat: 0,                
+              sun: 0,                  
+              done: false,
+              tasktotal: 0
+                  
+          }
+          setData((prev)=> [...prev, newRow])
+      }
     },
+    
     
     
   });
@@ -155,7 +172,7 @@ export default function Table() {
           </Box>
         ))}
       </Box>
-      {/* <BsFillPlusSquareFill size="2rem" color="white" /> */}
+      
     </Box>
   );
 }

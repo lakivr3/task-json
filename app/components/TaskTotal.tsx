@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect, useMemo, use } from "react";
-import DaysHook from "../hooks/DaysHook";
 import { DataType, EditProp } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 import {  } from "./Table";
@@ -13,13 +12,14 @@ export default function TaskTotal({row,column, table,getValue}: CellContext<Data
 
 
 
-  const a = useMemo(()=> {
+  const total = useMemo(()=> {
     return row.original.mon + row.original.tue + row.original.wed + row.original.thu + row.original.fri + row.original.sat + row.original.sun
   }, [row])           
 
   useEffect(()=> {
-    updateData(row.index,column.id, a)
-  },[a])
+    updateData(row.index,column.id, total)
+  },[total])
   
-  return <span>{a}</span>;
+  if (row.original.project === "") return;
+  else return <span>{total}</span>;
 }

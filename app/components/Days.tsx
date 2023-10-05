@@ -32,8 +32,11 @@ export default function Days({ getValue,  row, column, table }: CellContext<Data
     
     
   }, [initialValue]);
-  return (
+
+  if(row.original.project === "") return;
+  else return (
     <Input
+      type="number"
       value={value === 0 ? "" : value}
       onChange={handleChange}
       onBlur={onBlur}

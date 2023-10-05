@@ -9,10 +9,10 @@ export default function Done({ getValue, table, row, column }: CellContext<DataT
   const [value, setValue] = useState(initialValue);
   const onChange = () => {
     setValue((prev:boolean)=> !prev)
-    updateData(row.index,column.id, !value) 
+    updateData(row.index,column.id, value) 
   };
-  
-  return (
+  if(row.original.project === "") return;
+  else return (
     <div>
       <Checkbox
         background="whitesmoke"

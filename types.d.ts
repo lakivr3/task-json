@@ -37,3 +37,20 @@ type EditProp = {
   column: Column<TData>; 
   table: TData<Table>;
 }
+interface options  {
+  value:string,
+  label:string,
+}
+type SelectProps = {
+  isLoading: boolean,
+  handleChange: (newValue: SingleValue<any>) => void,
+  handleCreate: (inputValue: string) => void,
+  options: {
+      value:string,
+      label:string,
+  }[],
+  taskValue: options | null | undefined | string,
+  setTaskValue: (value: SetStateAction<options | null | undefined>) => void
+  row: string  
+  
+}
