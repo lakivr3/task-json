@@ -1,7 +1,7 @@
 "use client";
-import { DataType, EditProp } from "@/types";
+import { DataType, EditProp, TData } from "@/types";
 import { Input } from "@chakra-ui/react";
-import { CellContext } from "@tanstack/react-table";
+import { CellContext, TableMeta } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
 
 export default function EditableCell({
@@ -12,9 +12,8 @@ export default function EditableCell({
 }: CellContext<DataType, any>) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
-  const { updateData } = table.options.meta as any;
+  const { updateData, addRow } = table.options.meta as any;
   const handleChange = () => {
-    const Row = row.index + 1;
     updateData(row.index, column.id, value);
   };
   useEffect(() => {

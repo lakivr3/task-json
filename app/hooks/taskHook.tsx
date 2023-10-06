@@ -15,5 +15,5 @@ export default function taskHook() {
     createOption("Blabla"),
   ];
   const [options, setOptions] = useState(defaultOptions);
-  return { options, setOptions };
+  return { options, setOptions, createOption };
 }

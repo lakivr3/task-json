@@ -5,12 +5,10 @@ type Task = {
   label: string;
 };
 
-
-
 const DATA: DataType[] = [
   {
     project: "Dashboard",
-    task: '',
+    task: "",
     mon: 1,
     tue: 1,
     wed: 2,
@@ -20,12 +18,20 @@ const DATA: DataType[] = [
     sun: 0,
     done: false,
     get tasktotal() {
-      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
-    }
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
   {
     project: "Dashboard",
-    task: '',
+    task: "",
     mon: 0,
     tue: 0,
     wed: 0,
@@ -35,12 +41,20 @@ const DATA: DataType[] = [
     sun: 0,
     done: true,
     get tasktotal() {
-      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
-    }
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
   {
     project: "Dashboard",
-    task: '',
+    task: "",
     mon: 0,
     tue: 0,
     wed: 0,
@@ -50,12 +64,20 @@ const DATA: DataType[] = [
     sun: 0,
     done: false,
     get tasktotal() {
-      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
-    }
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
   {
     project: "",
-    task: '',
+    task: "",
     mon: 0,
     tue: 0,
     wed: 0,
@@ -65,8 +87,16 @@ const DATA: DataType[] = [
     sun: 0,
     done: true,
     get tasktotal() {
-      return this.mon + this.tue + this.wed + this.thu + this.fri + this.sat + this.sun
-    }
+      return (
+        this.mon +
+        this.tue +
+        this.wed +
+        this.thu +
+        this.fri +
+        this.sat +
+        this.sun
+      );
+    },
   },
 ];
 

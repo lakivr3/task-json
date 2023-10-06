@@ -19,6 +19,7 @@ type TData = {
   columnResizeMode: string;
   meta: {
     updateData: (rowIndex: number | string, columnId: number | string, value: number | string)=> any
+    addRow: () => void
   }
   
 }

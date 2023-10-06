@@ -10,8 +10,8 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { ReactNode, useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { ReactNode, useMemo, useState } from "react";
+import { Box, Button, ButtonGroup, Text } from "@chakra-ui/react";
 import EditableCell from "./EditableCell";
 import Task from "./Task";
 import Done from "./Done";
@@ -97,7 +97,10 @@ const columns: ColumnDef<DataType, any>[] = [
 export default function Table() {
   const [data, setData] = useState(DATA);
   const [columnFilters, setColumnFilters] = useState<columnFilters[]>([]);
+  let [paginate, setPaginate] = useState(0);
+  // const [options, setOptions] = useState(defaultOptions)
 
+  //////
   const table = useReactTable({
     data,
     columns,
@@ -107,7 +110,9 @@ export default function Table() {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     columnResizeMode: "onChange",
+    autoResetPageIndex: false,
     meta: {
       updateData: (
         rowIndex: number | string,
@@ -156,6 +161,7 @@ export default function Table() {
             {headerGroup.headers.map((header) => (
               <Box key={header.id} className="th" w={header.getSize()}>
                 {header.column.columnDef.header as ReactNode}
+
                 {header.column.getCanSort() &&
                 header.column.getIsSorted() === false ? (
                   <FaSort onClick={header.column.getToggleSortingHandler()} />
@@ -202,6 +208,24 @@ export default function Table() {
         ))}
       </Box>
       <br />
+      <Text ml={2}>
+        Page {table.getState().pagination.pageIndex + 1} of{" "}
+        {table.getPageCount()}
+      </Text>
+      <ButtonGroup ml={2}>
+        <Button
+          onClick={() => table.previousPage()}
+          isDisabled={!table.getCanPreviousPage()}
+        >
+          {"<"}
+        </Button>
+        <Button
+          onClick={() => table.nextPage()}
+          isDisabled={!table.getCanNextPage()}
+        >
+          {">"}
+        </Button>
+      </ButtonGroup>
     </Box>
   );
 }
