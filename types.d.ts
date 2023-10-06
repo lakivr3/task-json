@@ -54,3 +54,7 @@ type SelectProps = {
   row: string  
   
 }
+type columnFilters =  {
+  id: string,
+  value: string
+}

@@ -4,23 +4,23 @@ import { Input } from "@chakra-ui/react";
 import { CellContext } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
 
-export default function EditableCell({row, column, getValue, table}: CellContext<DataType, any>) {
+export default function EditableCell({
+  row,
+  column,
+  getValue,
+  table,
+}: CellContext<DataType, any>) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
-  const {updateData,addRow} = table.options.meta as any
+  const { updateData } = table.options.meta as any;
   const handleChange = () => {
-    // console.log(column.id)
-    // console.log(getValue())
-    const Row = row.index + 1
-    // if(Row === table.getFilteredRowModel().rows.length ) addRow()
-    updateData(row.index, column.id, value)
-    // if(row.original.project === "") {
-    // }
+    const Row = row.index + 1;
+    updateData(row.index, column.id, value);
   };
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
-  
+
   return (
     <Input
       id={value}
