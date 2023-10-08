@@ -3,6 +3,7 @@ import { DataType, EditProp, TData } from "@/types";
 import { Input } from "@chakra-ui/react";
 import { CellContext, TableMeta } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
+import TaskHook from "../hooks/taskHook";
 
 export default function EditableCell({
   row,

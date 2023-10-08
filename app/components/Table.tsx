@@ -20,7 +20,7 @@ import Days from "./Days";
 import DATA from "@/data/data";
 import { DataType, columnFilters } from "@/types";
 import Filters from "./Filters";
-import taskHook from "../hooks/taskHook";
+import TaskHook from "../hooks/taskHook";
 
 const columns: ColumnDef<DataType, any>[] = [
   {
@@ -208,11 +208,11 @@ export default function Table() {
         ))}
       </Box>
       <br />
-      <Text ml={2}>
+      <Text ml={1.5}>
         Page {table.getState().pagination.pageIndex + 1} of{" "}
         {table.getPageCount()}
       </Text>
-      <ButtonGroup ml={2}>
+      <ButtonGroup ml={1}>
         <Button
           onClick={() => table.previousPage()}
           isDisabled={!table.getCanPreviousPage()}

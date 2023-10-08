@@ -4,7 +4,7 @@ interface Options {
   label: string;
 }
 
-export default function taskHook() {
+export default function TaskHook() {
   const createOption = (label: string) => ({
     label,
     value: label.toLowerCase().replace(/\W/g, ""),

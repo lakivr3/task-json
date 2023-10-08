@@ -44,12 +44,15 @@ export default function Task({
 
   const handleCreate = (inputValue: string) => {
     setIsLoading(true);
+    const Row = row.index + 1;
+    if (Row === table.getFilteredRowModel().rows.length) addRow();
     setTimeout(() => {
       const newOption = createOption(inputValue);
       setIsLoading(false);
       setTaskValue(newOption);
       setOptions((prev) => [...prev, newOption]);
       updateData(row.index, column.id, newOption);
+      updateData(row.index, "project", newOption.label);
     }, 1000);
   };
 
@@ -59,6 +62,7 @@ export default function Task({
     updateData(row.index, column.id, value);
     setTaskValue(newValue);
     updateData(row.index, column.id, newValue);
+    updateData(row.index, "project", newValue?.label);
 
     const filter2 = defaultOptions.filter(
       (opt: any) => opt.value !== newValue?.value
