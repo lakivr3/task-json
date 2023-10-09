@@ -19,6 +19,10 @@ export default function EditableCell({
   };
   useEffect(() => {
     setValue(initialValue);
+    if (row.original.task === null && row.original.project === undefined) {
+      setValue(value);
+      updateData(row.index, column.id, value);
+    }
   }, [initialValue]);
 
   return (

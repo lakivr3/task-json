@@ -4,6 +4,17 @@ type Task = {
   value: string;
   label: string;
 };
+const createOption = (label: string) => ({
+  label,
+  value: label.toLowerCase().replace(/\W/g, ""),
+});
+const defaultOptions = [
+  createOption("Add colors to website"),
+  createOption("Build REST"),
+  createOption("Blabla"),
+];
+
+const TASKS = defaultOptions;
 
 const DATA: DataType[] = [
   {
@@ -39,7 +50,7 @@ const DATA: DataType[] = [
     fri: 0,
     sat: 0,
     sun: 0,
-    done: true,
+    done: false,
     get tasktotal() {
       return (
         this.mon +
@@ -85,7 +96,7 @@ const DATA: DataType[] = [
     fri: 0,
     sat: 0,
     sun: 0,
-    done: true,
+    done: false,
     get tasktotal() {
       return (
         this.mon +
@@ -100,4 +111,4 @@ const DATA: DataType[] = [
   },
 ];
 
-export default DATA;
+export { DATA, TASKS };

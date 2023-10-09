@@ -58,5 +58,11 @@
       "done": false,
       "tasktotal": 0
     }
+  ],
+  "tasks" : [
+    { "value": "Project1", "label": "Project1", "id":1 },
+    { "value": "Project2", "label": "Project2","id":2},
+    { "value": "Project3", "label": "Project3","id":3 },
+    { "value": "", "label": "" }
   ]
 }

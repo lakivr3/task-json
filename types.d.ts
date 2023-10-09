@@ -53,6 +53,7 @@ type SelectProps = {
   taskValue: options | null | undefined | string,
   setTaskValue: (value: SetStateAction<options | null | undefined>) => void
   row: string  
+  setOptions:any
   
 }
 type columnFilters =  {

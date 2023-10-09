@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { DataType } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 import { SingleValue } from "react-select";
-import CreatebleSelect from "./CreatebleSelect";
+import SelectInput from "./CreatebleSelect";
+import { TASKS } from "@/data/data";
 interface Options {
   value: string;
   label: string;
@@ -28,19 +29,13 @@ export default function Task({
     ];
   }, [row.original.project]);
 
+  const { updateData, addRow } = table.options.meta as any;
+
   const data = getValue();
   const [value, setValue] = useState(data);
   const [isLoading, setIsLoading] = useState(false);
-  const [options, setOptions] = useState(defaultOptions);
-  const [taskValue, setTaskValue] = useState<Options | null>();
-
-  const { updateData, addRow } = table.options.meta as any;
-
-  useEffect(() => {
-    const Row = row.index + 1;
-    if (Row === table.getFilteredRowModel().rows.length)
-      updateData(row.index, column.id, createOption(row.original.project));
-  }, [row.original.project]);
+  const [options, setOptions] = useState(TASKS);
+  const [taskValue, setTaskValue] = useState<Options | null | undefined>();
 
   const handleCreate = (inputValue: string) => {
     setIsLoading(true);
@@ -59,23 +54,27 @@ export default function Task({
   const handleChange = (newValue: SingleValue<Options>) => {
     const Row = row.index + 1;
     if (Row === table.getFilteredRowModel().rows.length) addRow();
-    updateData(row.index, column.id, value);
     setTaskValue(newValue);
     updateData(row.index, column.id, newValue);
     updateData(row.index, "project", newValue?.label);
 
-    const filter2 = defaultOptions.filter(
-      (opt: any) => opt.value !== newValue?.value
-    );
-    setOptions(filter2);
+    const fil = defaultOptions.filter((opt) => opt.value !== newValue?.value);
+    setOptions(fil);
+
     console.log(row.original.task);
   };
+  useEffect(() => {
+    const Row = row.index + 1;
+    if (Row === table.getFilteredRowModel().rows.length)
+      updateData(row.index, column.id, createOption(row.original.project));
+  }, [row.original.project]);
 
   return (
-    <CreatebleSelect
+    <SelectInput
       isLoading={isLoading}
       handleChange={handleChange}
       handleCreate={handleCreate}
+      setOptions={setOptions}
       options={options}
       taskValue={taskValue}
       setTaskValue={setTaskValue}

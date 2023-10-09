@@ -14,7 +14,7 @@ export default function Done({
   const [value, setValue] = useState(initialValue);
   const onChange = () => {
     setValue((prev: boolean) => !prev);
-    updateData(row.index, column.id, value);
+    updateData(row.index, column.id, !value);
   };
   if (row.original.project === "") return;
   else
