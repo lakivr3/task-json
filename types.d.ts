@@ -1,7 +1,7 @@
 import { Column, Row, Table } from "@tanstack/react-table";
 type DataType = {
   project: string;
-  task: string;
+  task: {value:string,label:string};
   mon: number;
   tue: number;
   wed: number;
@@ -59,4 +59,8 @@ type SelectProps = {
 type columnFilters =  {
   id: string,
   value: string
+}
+type Tasks = { 
+  value:string,
+  label:string
 }

@@ -19,7 +19,7 @@ const TASKS = defaultOptions;
 const DATA: DataType[] = [
   {
     project: "Dashboard",
-    task: "",
+    task: { value: "", label: "" },
     mon: 1,
     tue: 1,
     wed: 2,
@@ -42,7 +42,7 @@ const DATA: DataType[] = [
   },
   {
     project: "Dashboard",
-    task: "",
+    task: { value: "", label: "" },
     mon: 0,
     tue: 0,
     wed: 0,
@@ -65,7 +65,7 @@ const DATA: DataType[] = [
   },
   {
     project: "Dashboard",
-    task: "",
+    task: { value: "", label: "" },
     mon: 0,
     tue: 0,
     wed: 0,
@@ -88,7 +88,7 @@ const DATA: DataType[] = [
   },
   {
     project: "",
-    task: "",
+    task: { value: "", label: "" },
     mon: 0,
     tue: 0,
     wed: 0,

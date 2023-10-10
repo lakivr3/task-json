@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { ReactNode, SetStateAction, useMemo, useState } from "react";
+import { ReactNode, SetStateAction, useEffect, useMemo, useState } from "react";
 import { Box, Button, ButtonGroup, Text } from "@chakra-ui/react";
 import EditableCell from "./EditableCell";
 import Task from "./Task";
@@ -18,7 +18,7 @@ import Done from "./Done";
 import TaskTotal from "./TaskTotal";
 import Days from "./Days";
 import { DATA, TASKS } from "@/data/data";
-import { DataType, columnFilters } from "@/types";
+import { DataType, Tasks, columnFilters, options } from "@/types";
 import Filters from "./Filters";
 
 const columns: ColumnDef<DataType, any>[] = [
@@ -96,7 +96,6 @@ const columns: ColumnDef<DataType, any>[] = [
 export default function Table() {
   const [data, setData] = useState(DATA);
   const [columnFilters, setColumnFilters] = useState<columnFilters[]>([]);
-  const [paginate, setPaginate] = useState(0);
   const [dataTask, setDataTask] = useState(TASKS);
 
   //////
@@ -113,11 +112,13 @@ export default function Table() {
     columnResizeMode: "onChange",
     autoResetPageIndex: false,
     meta: {
-      // updateTask: (value: string) => {
-      //   setDataTask((prev): any => {
-      //     prev.filter((task) => task.value !== value);
-      //   });
-      // },
+      updateTask: (value: string) => {
+        setDataTask((prev) => prev.filter((task) => task.value !== value));
+      },
+      task: dataTask,
+      setDataTask: (value: any) => {
+        setDataTask(value);
+      },
 
       updateData: (
         rowIndex: number | string,
@@ -138,7 +139,7 @@ export default function Table() {
       addRow: () => {
         const newRow: DataType = {
           project: "",
-          task: "",
+          task: { value: "", label: "" },
           mon: 0,
           tue: 0,
           wed: 0,
@@ -153,8 +154,15 @@ export default function Table() {
       },
     },
   });
+  useEffect(() => {
+    const map = data.map((array) => array.task);
+    const filter = dataTask.filter(
+      (x: { value: string; label: string }) => !map.includes(x)
+    );
+    // setDataTask(TASKS.filter((ts)=> ts.value !== taskValue));
+  }, [dataTask]);
 
-  console.log(data);
+  // console.log(data);
   return (
     <Box>
       <Filters

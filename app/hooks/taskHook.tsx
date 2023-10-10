@@ -5,15 +5,6 @@ interface Options {
 }
 
 export default function TaskHook() {
-  const createOption = (label: string) => ({
-    label,
-    value: label.toLowerCase().replace(/\W/g, ""),
-  });
-  const defaultOptions = [
-    createOption("Add colors to website"),
-    createOption("Build REST"),
-    createOption("Blabla"),
-  ];
-  const [options, setOptions] = useState(defaultOptions);
-  return { options, setOptions, createOption };
+  const [newOptions, setNewOptions] = useState([]);
+  return { newOptions, setNewOptions };
 }
