@@ -21,19 +21,29 @@ import { DATA, TASKS } from "@/data/data";
 import { DataType, columnFilters } from "@/types";
 import Filters from "./Filters";
 import DataJSON from "@/_data/db.json";
+import ID from "./ID";
+import { Mon, Fri, Sat, Sun, Thu, Tue, Wed } from "./Days/index";
+import { NextResponse } from "next/server";
 
 const columns: ColumnDef<DataType, any>[] = [
   {
+    accessorKey: "id",
+    header: "Id",
+    size: 10,
+
+    cell: ID,
+  },
+  {
     accessorKey: "project",
     header: "Project",
-    size: 230,
+    size: 200,
 
     cell: EditableCell,
   },
   {
     accessorKey: "task",
     header: "Task",
-    size: 300,
+    size: 280,
     enableSorting: false,
     cell: Task,
   },
@@ -41,43 +51,43 @@ const columns: ColumnDef<DataType, any>[] = [
     accessorKey: "mon",
     header: "Mon",
     size: 100,
-    cell: Days,
+    cell: Mon,
   },
   {
     accessorKey: "tue",
     header: "Tue",
     size: 100,
-    cell: Days,
+    cell: Tue,
   },
   {
     accessorKey: "wed",
     header: "Wed",
     size: 100,
-    cell: Days,
+    cell: Wed,
   },
   {
     accessorKey: "thu",
     header: "Thu",
     size: 100,
-    cell: Days,
+    cell: Thu,
   },
   {
     accessorKey: "fri",
     header: "Fri",
     size: 100,
-    cell: Days,
+    cell: Fri,
   },
   {
     accessorKey: "sat",
     header: "Sat",
     size: 100,
-    cell: Days,
+    cell: Sat,
   },
   {
     accessorKey: "sun",
     header: "Sun",
     size: 100,
-    cell: Days,
+    cell: Sun,
   },
   {
     accessorKey: "done",
@@ -95,9 +105,30 @@ const columns: ColumnDef<DataType, any>[] = [
 ];
 
 export default function Table() {
-  const [data, setData] = useState(DATA);
+  const [data, setData] = useState(DataJSON.data);
   const [columnFilters, setColumnFilters] = useState<columnFilters[]>([]);
   const [dataTask, setDataTask] = useState(TASKS);
+  const handleUpdate = async () => {
+    const response = await fetch(`http://localhost:4000/data`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        project: "",
+        task: { value: "", label: "" },
+        mon: 0,
+        tue: 0,
+        wed: 0,
+        thu: 0,
+        fri: 0,
+        sat: 0,
+        sun: 0,
+        done: false,
+        tasktotal: 0,
+      }),
+    });
+    if (response.ok) NextResponse.json({ message: "Posted" });
+    else NextResponse.json({ message: "Failed to POST" });
+  };
 
   //////
   const table = useReactTable({
@@ -137,22 +168,7 @@ export default function Table() {
           )
         ),
 
-      addRow: () => {
-        const newRow: DataType = {
-          project: "",
-          task: { value: "", label: "" },
-          mon: 0,
-          tue: 0,
-          wed: 0,
-          thu: 0,
-          fri: 0,
-          sat: 0,
-          sun: 0,
-          done: false,
-          tasktotal: 0,
-        };
-        setData((prev) => [...prev, newRow]);
-      },
+      addRow: () => handleUpdate(),
     },
   });
   useEffect(() => {
@@ -163,7 +179,6 @@ export default function Table() {
     setDataTask(filter);
   }, [dataTask]);
 
-  // console.log(data);
   return (
     <Box>
       <Filters

@@ -1,5 +1,6 @@
 import { Column, Row, Table } from "@tanstack/react-table";
 type DataType = {
+  id:number;
   project: string;
   task: {value:string,label:string} | null;
   mon: number;

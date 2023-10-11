@@ -5,7 +5,7 @@ import { DataType } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 import { NextResponse } from "next/server";
 
-export default function Days({
+export default function Mon({
   getValue,
   row,
   column,

@@ -7,6 +7,7 @@ import { SingleValue } from "react-select";
 import SelectInput from "./CreatebleSelect";
 import { TASKS } from "@/data/data";
 import TaskHook from "../hooks/taskHook";
+import { NextResponse } from "next/server";
 interface Options {
   value: string;
   label: string;
@@ -36,36 +37,45 @@ export default function Task({
   const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState<options[]>(task);
   const [taskValue, setTaskValue] = useState<Options | null | undefined>();
-  const { newOptions, setNewOptions } = TaskHook();
-  const handleUpdate = (newValue: SingleValue<Options>) => {
-    updateData(row.index, column.id, newValue);
-    updateData(row.index, "project", "Dashboard");
-
-    updateTask(taskValue?.value);
+  // const handleUpdate = (newValue: SingleValue<Options>) => {
+  //   updateData(row.index, column.id, newValue);
+  //   updateData(row.index, "project", "Dashboard");
+  // };
+  const handleUpdate = async (newValue: SingleValue<Options>) => {
+    const response = await fetch(
+      `http://localhost:4000/data/${row.original.id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ task: newValue, project: "Dashboard" }),
+      }
+    );
+    if (response.ok)
+      NextResponse.json({ message: `id:${row.original.id}, Edited` });
+    else NextResponse.json({ message: "Failed to PUT" });
   };
-
   const handleCreate = (inputValue: string) => {
     setIsLoading(true);
     const Row = row.index + 1;
     if (Row === table.getFilteredRowModel().rows.length) addRow();
-    setTimeout(() => {
+    setTimeout(async () => {
       const newOption = createOption(inputValue);
       setIsLoading(false);
       setTaskValue(newOption);
       setOptions((prev: any) => [...prev, newOption]);
-      updateData(row.index, column.id, newOption);
-      updateData(row.index, "project", "Dashboard");
+      // updateData(row.index, column.id, newOption);
+
+      handleUpdate(newOption);
     }, 1000);
   };
 
-  const handleChange = (newValue: SingleValue<Options>) => {
-    const Row = row.index + 1;
-    if (Row === table.getFilteredRowModel().rows.length) addRow();
-    if (row.original.task === null) {
-      updateData(row.index, column.id, taskValue);
-    }
+  const handleChange = async (newValue: SingleValue<Options>) => {
     setTaskValue(newValue);
     handleUpdate(newValue);
+
+    const Row = row.index + 1;
+    // if (Row === table.getFilteredRowModel().rows.length) addRow();
+
     console.log(options);
     // console.log(row.original.task);
   };
@@ -76,8 +86,9 @@ export default function Task({
   // }, [row.original.project]);
   // console.log(options);
   useEffect(() => {
-    console.log(task);
-  }, [taskValue?.value]);
+    if (row.original.task === null || row.original.task.value === "") return;
+    else setTaskValue(row.original.task);
+  }, [row.original.task]);
 
   return (
     <SelectInput

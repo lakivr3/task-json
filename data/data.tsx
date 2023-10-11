@@ -12,7 +12,7 @@ const defaultOptions = [
 
 const TASKS = defaultOptions;
 
-const DATA: DataType[] = [
+const DATA = [
   {
     project: "Dashboard",
     task: { value: "", label: "" },

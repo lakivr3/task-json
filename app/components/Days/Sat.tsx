@@ -5,7 +5,7 @@ import { DataType } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 import { NextResponse } from "next/server";
 
-export default function Days({
+export default function Sat({
   getValue,
   row,
   column,
@@ -37,7 +37,7 @@ export default function Days({
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mon: parseValue }),
+          body: JSON.stringify({ sat: parseValue }),
         }
       );
       if (response.ok)
@@ -49,7 +49,7 @@ export default function Days({
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mon: 0 }),
+          body: JSON.stringify({ sat: 0 }),
         }
       );
       if (response0.ok)

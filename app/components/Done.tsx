@@ -1,7 +1,8 @@
 import { DataType, TData } from "@/types";
 import { Checkbox } from "@chakra-ui/react";
 import { CellContext, TableMeta } from "@tanstack/react-table";
-import { useState } from "react";
+import { NextResponse } from "next/server";
+import { useEffect, useState } from "react";
 
 export default function Done({
   getValue,
@@ -12,10 +13,21 @@ export default function Done({
   const initialValue = getValue();
   const { updateData } = table.options.meta as any;
   const [value, setValue] = useState(initialValue);
-  const onChange = () => {
+  const onChange = async () => {
     setValue((prev: boolean) => !prev);
-    updateData(row.index, column.id, !value);
+    const response = await fetch(
+      `http://localhost:4000/data/${row.original.id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ done: !value }),
+      }
+    );
+    if (response.ok)
+      NextResponse.json({ message: `id:${row.original.id}, Edited` });
+    else NextResponse.json({ message: "Failed to PUT" });
   };
+
   if (row.original.project === "") return;
   else
     return (
@@ -23,7 +35,7 @@ export default function Done({
         <Checkbox
           background="whitesmoke"
           onChange={onChange}
-          defaultChecked={false}
+          defaultChecked={value}
         />
       </div>
     );

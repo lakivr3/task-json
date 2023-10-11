@@ -3,7 +3,8 @@ import { DataType, EditProp, TData } from "@/types";
 import { Input } from "@chakra-ui/react";
 import { CellContext, TableMeta } from "@tanstack/react-table";
 import { useState, useEffect } from "react";
-import TaskHook from "../hooks/taskHook";
+import { NextResponse } from "next/server";
+import { data } from "@/_data/db.json";
 
 export default function EditableCell({
   row,
@@ -13,24 +14,31 @@ export default function EditableCell({
 }: CellContext<DataType, any>) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
-  const { updateData, addRow } = table.options.meta as any;
+  const { updateData } = table.options.meta as any;
   const handleChange = () => {
     updateData(row.index, column.id, value);
   };
-  useEffect(() => {
-    setValue(initialValue);
-    if (row.original.task === null && row.original.project === undefined) {
-      setValue(value);
-      updateData(row.index, column.id, value);
-    }
-  }, [initialValue]);
+
+  const handleUpdate = async () => {
+    const response = await fetch(
+      `http://localhost:4000/data/${row.original.id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ project: value }),
+      }
+    );
+    if (response.ok)
+      NextResponse.json({ message: `id:${row.original.id}, Edited` });
+    else NextResponse.json({ message: "Failed to PUT" });
+  };
 
   return (
     <Input
       id={value}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      onBlur={handleChange}
+      onBlur={handleUpdate}
       variant="filled"
       size="sm"
       w="85%"

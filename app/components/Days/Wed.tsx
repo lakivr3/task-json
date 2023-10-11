@@ -5,7 +5,7 @@ import { DataType } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 import { NextResponse } from "next/server";
 
-export default function Days({
+export default function Wed({
   getValue,
   row,
   column,
@@ -22,8 +22,8 @@ export default function Days({
   };
 
   useEffect(() => {
-    setValue(initialValue);
-  }, [initialValue]);
+    setValue(row.original.wed);
+  }, [row.original.wed]);
   const onBlur = async () => {
     const columnID = column.id;
     const parseValue = parseInt(value);
@@ -37,7 +37,7 @@ export default function Days({
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mon: parseValue }),
+          body: JSON.stringify({ wed: parseValue }),
         }
       );
       if (response.ok)
@@ -49,7 +49,7 @@ export default function Days({
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mon: 0 }),
+          body: JSON.stringify({ wed: 0 }),
         }
       );
       if (response0.ok)
