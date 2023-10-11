@@ -3,13 +3,7 @@
     {
       "id":1,
       "project": "Dashboard",
-      "task": [
-        { "value": "Project1", "label": "Project1" },
-        { "value": "Project2", "label": "Project2" },
-        { "value": "Project3", "label": "Project3" },
-        { "value": "Project4", "label": "Project4" }
-      ],
-      
+      "task": {"value": "", "label":""},
       "mon": 0,
       "tue": 1,
       "wed": 2,
@@ -23,12 +17,7 @@
     {
       "id":2,
       "project": "Dashboard",
-      "task": [
-        { "value": "Project1", "label": "Project1" },
-        { "value": "Project2", "label": "Project2" },
-        { "value": "Project3", "label": "Project3" },
-        { "value": "Project4", "label": "Project4" }
-      ],
+      "task": {"value": "", "label":""},
       "mon": 0,
       "tue": 1,
       "wed": 2,
@@ -42,12 +31,7 @@
     {
       "id":3,
       "project": "Dashboard",
-      "task": [
-        { "value": "Project1", "label": "Project1" },
-        { "value": "Project2", "label": "Project2" },
-        { "value": "Project3", "label": "Project3" },
-        { "value": "Project4", "label": "Project4" }
-      ],
+      "task": {"value": "", "label":""},
       "mon": 0,
       "tue": 1,
       "wed": 2,

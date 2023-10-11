@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { ReactNode, SetStateAction, useEffect, useMemo, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Box, Button, ButtonGroup, Text } from "@chakra-ui/react";
 import EditableCell from "./EditableCell";
 import Task from "./Task";
@@ -18,8 +18,9 @@ import Done from "./Done";
 import TaskTotal from "./TaskTotal";
 import Days from "./Days";
 import { DATA, TASKS } from "@/data/data";
-import { DataType, Tasks, columnFilters, options } from "@/types";
+import { DataType, columnFilters } from "@/types";
 import Filters from "./Filters";
+import DataJSON from "@/_data/db.json";
 
 const columns: ColumnDef<DataType, any>[] = [
   {
@@ -155,11 +156,11 @@ export default function Table() {
     },
   });
   useEffect(() => {
-    const map = data.map((array) => array.task);
-    const filter = dataTask.filter(
-      (x: { value: string; label: string }) => !map.includes(x)
+    const map = data.map((array) => array.task?.value);
+    const filter = TASKS.filter(
+      (x: { value: string; label: string }) => !map.includes(x.value)
     );
-    // setDataTask(TASKS.filter((ts)=> ts.value !== taskValue));
+    setDataTask(filter);
   }, [dataTask]);
 
   // console.log(data);

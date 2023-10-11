@@ -1,9 +1,5 @@
 import { DataType } from "@/types";
 
-type Task = {
-  value: string;
-  label: string;
-};
 const createOption = (label: string) => ({
   label,
   value: label.toLowerCase().replace(/\W/g, ""),

@@ -37,6 +37,12 @@ export default function Task({
   const [options, setOptions] = useState<options[]>(task);
   const [taskValue, setTaskValue] = useState<Options | null | undefined>();
   const { newOptions, setNewOptions } = TaskHook();
+  const handleUpdate = (newValue: SingleValue<Options>) => {
+    updateData(row.index, column.id, newValue);
+    updateData(row.index, "project", "Dashboard");
+
+    updateTask(taskValue?.value);
+  };
 
   const handleCreate = (inputValue: string) => {
     setIsLoading(true);
@@ -48,13 +54,8 @@ export default function Task({
       setTaskValue(newOption);
       setOptions((prev: any) => [...prev, newOption]);
       updateData(row.index, column.id, newOption);
+      updateData(row.index, "project", "Dashboard");
     }, 1000);
-  };
-  const handleUpdate = (newValue: SingleValue<Options>) => {
-    updateData(row.index, column.id, newValue);
-    updateData(row.index, "project", "Dashboard");
-
-    updateTask(taskValue?.value);
   };
 
   const handleChange = (newValue: SingleValue<Options>) => {

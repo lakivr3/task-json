@@ -1,7 +1,7 @@
 import { Column, Row, Table } from "@tanstack/react-table";
 type DataType = {
   project: string;
-  task: {value:string,label:string};
+  task: {value:string,label:string} | null;
   mon: number;
   tue: number;
   wed: number;
