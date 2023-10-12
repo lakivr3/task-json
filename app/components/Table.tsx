@@ -22,7 +22,6 @@ import { DataType, columnFilters } from "@/types";
 import Filters from "./Filters";
 import DataJSON from "@/_data/db.json";
 import ID from "./ID";
-import { Mon, Fri, Sat, Sun, Thu, Tue, Wed } from "./Days/index";
 import { NextResponse } from "next/server";
 
 const columns: ColumnDef<DataType, any>[] = [
@@ -51,43 +50,43 @@ const columns: ColumnDef<DataType, any>[] = [
     accessorKey: "mon",
     header: "Mon",
     size: 100,
-    cell: Mon,
+    cell: Days,
   },
   {
     accessorKey: "tue",
     header: "Tue",
     size: 100,
-    cell: Tue,
+    cell: Days,
   },
   {
     accessorKey: "wed",
     header: "Wed",
     size: 100,
-    cell: Wed,
+    cell: Days,
   },
   {
     accessorKey: "thu",
     header: "Thu",
     size: 100,
-    cell: Thu,
+    cell: Days,
   },
   {
     accessorKey: "fri",
     header: "Fri",
     size: 100,
-    cell: Fri,
+    cell: Days,
   },
   {
     accessorKey: "sat",
     header: "Sat",
     size: 100,
-    cell: Sat,
+    cell: Days,
   },
   {
     accessorKey: "sun",
     header: "Sun",
     size: 100,
-    cell: Sun,
+    cell: Days,
   },
   {
     accessorKey: "done",
@@ -106,6 +105,7 @@ const columns: ColumnDef<DataType, any>[] = [
 
 export default function Table() {
   const [data, setData] = useState(DataJSON.data);
+  const [newData, setNewData] = useState(DATA);
   const [columnFilters, setColumnFilters] = useState<columnFilters[]>([]);
   const [dataTask, setDataTask] = useState(TASKS);
   const handleUpdate = async () => {
@@ -151,13 +151,14 @@ export default function Table() {
       setDataTask: (value: any) => {
         setDataTask(value);
       },
+      newData: newData,
 
       updateData: (
         rowIndex: number | string,
         columnId: number | string,
         value: number | string
       ) =>
-        setData((prev) =>
+        setNewData((prev) =>
           prev.map((row, index) =>
             index === rowIndex
               ? {
@@ -172,13 +173,12 @@ export default function Table() {
     },
   });
   useEffect(() => {
-    const map = data.map((array) => array.task?.value);
+    const map = data.map((array: DataType) => array.task?.value);
     const filter = TASKS.filter(
       (x: { value: string; label: string }) => !map.includes(x.value)
     );
     setDataTask(filter);
-  }, [dataTask]);
-
+  }, [dataTask, DataJSON.data]);
   return (
     <Box>
       <Filters

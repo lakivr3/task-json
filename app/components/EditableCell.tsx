@@ -15,11 +15,11 @@ export default function EditableCell({
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
   const { updateData } = table.options.meta as any;
-  const handleChange = () => {
-    updateData(row.index, column.id, value);
-  };
+  const handleChange = () => {};
 
   const handleUpdate = async () => {
+    updateData(row.index, column.id, value);
+
     const response = await fetch(
       `http://localhost:4000/data/${row.original.id}`,
       {

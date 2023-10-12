@@ -1,9 +1,10 @@
 "use client";
 import { Input } from "@chakra-ui/react";
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, useMemo } from "react";
 import { DataType } from "@/types";
-import { CellContext } from "@tanstack/react-table";
+import { CellContext, getCoreRowModel } from "@tanstack/react-table";
 import { NextResponse } from "next/server";
+import Data from "../../_data/db.json";
 
 export default function Days({
   getValue,
@@ -13,7 +14,9 @@ export default function Days({
 }: CellContext<DataType, any>) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
-  // const [columnID, setColumnID] = useState(column.id);
+  const [total, setTotal] = useState(Data.data);
+
+  const [final, setFinal] = useState(0);
   const { updateData } = table.options.meta as any;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,39 +26,52 @@ export default function Days({
 
   useEffect(() => {
     setValue(initialValue);
-  }, [initialValue]);
+  }, [initialValue, Data.data]);
+
   const onBlur = async () => {
-    const columnID = column.id;
     const parseValue = parseInt(value);
-    console.log(columnID, value);
+    console.log(total[row.index]);
 
     if (!isNaN(parseValue)) {
-      // updateData(row.index, column.id, parseValue);
+      updateData(row.index, column.id, parseValue);
 
       const response = await fetch(
         `http://localhost:4000/data/${row.original.id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mon: parseValue }),
+          body: JSON.stringify({
+            [`${column.id}`]: parseValue,
+          }),
         }
       );
       if (response.ok)
         NextResponse.json({ message: `id:${row.original.id}, Edited` });
       else NextResponse.json({ message: "Failed to PUT" });
     } else if (value === "") {
+      updateData(row.index, column.id, 0);
+
       const response0 = await fetch(
         `http://localhost:4000/data/${row.original.id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ mon: 0 }),
+          body: JSON.stringify({ [`${column.id}`]: 0 }),
         }
       );
       if (response0.ok)
         NextResponse.json({ message: `id:${row.original.id}, Edited` });
       else NextResponse.json({ message: "Failed to PUT" });
+      console.log(total);
     }
+    const filter =
+      total[row.index].mon +
+      total[row.index].tue +
+      total[row.index].wed +
+      total[row.index].thu +
+      total[row.index].fri +
+      total[row.index].sat +
+      total[row.index].sun;
   };
 
   if (row.original.project === "") return;

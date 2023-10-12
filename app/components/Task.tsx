@@ -63,7 +63,7 @@ export default function Task({
       setIsLoading(false);
       setTaskValue(newOption);
       setOptions((prev: any) => [...prev, newOption]);
-      // updateData(row.index, column.id, newOption);
+      updateData(row.index, column.id, newOption);
 
       handleUpdate(newOption);
     }, 1000);

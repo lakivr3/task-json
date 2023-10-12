@@ -3,7 +3,9 @@ import { useState, useEffect, useMemo, use } from "react";
 import { DataType, EditProp } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 import {} from "./Table";
+import Data from "../../_data/db.json";
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 
 export default function TaskTotal({
   row,
@@ -11,6 +13,8 @@ export default function TaskTotal({
   table,
   getValue,
 }: CellContext<DataType, any>) {
+  const { newData } = table.options.meta as any;
+
   const total = useMemo(() => {
     return (
       row.original.mon +
@@ -22,26 +26,14 @@ export default function TaskTotal({
       row.original.sun
     );
   }, [row]);
+
   const initialValue = getValue();
   const { updateData } = table.options.meta as any;
   const [value, setValue] = useState(total);
 
   useEffect(() => {
-    // const sum = table.options.data.map((task)=> task)
-    const handleUpdate = async () => {
-      const res = await fetch(`http://localhost:4000/data/${row.original.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          tasktotal: total,
-        }),
-      });
-      if (res.ok) NextResponse.json({ message: "Success" });
-      else NextResponse.json({ message: "Failed to PUT" });
-    };
-
-    handleUpdate();
-  }, [row]);
+    updateData(column.id, row.index, total);
+  }, [total]);
 
   if (row.original.project === "") return;
   else return <span>{total}</span>;
