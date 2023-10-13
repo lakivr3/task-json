@@ -1,20 +1,9 @@
 "use client";
-import { useState, useEffect, useMemo, use } from "react";
-import { DataType, EditProp } from "@/types";
+import { useMemo } from "react";
+import { DataType } from "@/types";
 import { CellContext } from "@tanstack/react-table";
-import {} from "./Table";
-import Data from "../../_data/db.json";
-import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 
-export default function TaskTotal({
-  row,
-  column,
-  table,
-  getValue,
-}: CellContext<DataType, any>) {
-  const { newData } = table.options.meta as any;
-
+export default function TaskTotal({ row }: CellContext<DataType, any>) {
   const total = useMemo(() => {
     return (
       row.original.mon +

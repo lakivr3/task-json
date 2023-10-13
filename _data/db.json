@@ -2,11 +2,8 @@
   "data": [
     {
       "id": 1,
-      "project": "Dashboard",
-      "task": {
-        "label": "",
-        "value": ""
-      },
+      "project": "asdDashboardsad",
+      "task": null,
       "mon": 1,
       "tue": 1,
       "wed": 1,
@@ -21,18 +18,32 @@
       "id": 2,
       "project": "Dashboard",
       "task": null,
-      "mon": 0,
+      "mon": 1,
       "tue": 0,
       "wed": 0,
       "thu": 0,
       "fri": 0,
       "sat": 0,
       "sun": 0,
-      "done": false,
+      "done": true,
       "tasktotal": 0
     },
     {
       "id": 3,
+      "project": "Dashboard",
+      "task": null,
+      "mon": 1,
+      "tue": 1,
+      "wed": 2,
+      "thu": 0,
+      "fri": 1,
+      "sat": 0,
+      "sun": 0,
+      "done": false,
+      "tasktotal": 0
+    },
+    {
+      "id": 4,
       "project": "Dashboard",
       "task": null,
       "mon": 0,
@@ -46,12 +57,51 @@
       "tasktotal": 0
     },
     {
-      "id": 4,
+      "id": 5,
+      "project": "Dashboard",
+      "task": null,
+      "mon": 0,
+      "tue": 0,
+      "wed": 0,
+      "thu": 0,
+      "fri": 0,
+      "sat": 0,
+      "sun": 0,
+      "done": false,
+      "tasktotal": 0
+    },
+    {
+      "id": 6,
+      "project": "Dashboard",
+      "task": null,
+      "mon": 0,
+      "tue": 0,
+      "wed": 0,
+      "thu": 0,
+      "fri": 0,
+      "sat": 0,
+      "sun": 0,
+      "done": false,
+      "tasktotal": 0
+    },
+    {
+      "id": 7,
+      "project": "Dashboard",
+      "task": null,
+      "mon": 0,
+      "tue": 0,
+      "wed": 0,
+      "thu": 0,
+      "fri": 0,
+      "sat": 0,
+      "sun": 0,
+      "done": false,
+      "tasktotal": 0
+    },
+    {
+      "id": 8,
       "project": "",
-      "task": {
-        "label": "",
-        "value": ""
-      },
+      "task": null,
       "mon": 0,
       "tue": 0,
       "wed": 0,
@@ -62,6 +112,5 @@
       "done": false,
       "tasktotal": 0
     }
-    
   ]
 }

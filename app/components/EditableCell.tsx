@@ -1,10 +1,9 @@
 "use client";
-import { DataType, EditProp, TData } from "@/types";
+import { DataType } from "@/types";
 import { Input } from "@chakra-ui/react";
-import { CellContext, TableMeta } from "@tanstack/react-table";
-import { useState, useEffect } from "react";
+import { CellContext } from "@tanstack/react-table";
+import { useState } from "react";
 import { NextResponse } from "next/server";
-import { data } from "@/_data/db.json";
 
 export default function EditableCell({
   row,
@@ -15,7 +14,6 @@ export default function EditableCell({
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
   const { updateData } = table.options.meta as any;
-  const handleChange = () => {};
 
   const handleUpdate = async () => {
     updateData(row.index, column.id, value);
@@ -32,9 +30,6 @@ export default function EditableCell({
       NextResponse.json({ message: `id:${row.original.id}, Edited` });
     else NextResponse.json({ message: "Failed to PUT" });
   };
-  useEffect(() => {
-    setValue(row.original.project);
-  }, [row.original.project]);
 
   return (
     <Input

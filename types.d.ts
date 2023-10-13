@@ -57,7 +57,7 @@ type SelectProps = {
   setOptions:any
   
 }
-type columnFilters =  {
+type ColumnFilters =  {
   id: string,
   value: string
 }

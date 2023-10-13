@@ -1,12 +1,10 @@
 "use client";
 
-import { SetStateAction, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { DataType, options } from "@/types";
 import { CellContext } from "@tanstack/react-table";
 import { SingleValue } from "react-select";
 import SelectInput from "./CreatebleSelect";
-import { TASKS } from "@/data/data";
-import TaskHook from "../hooks/taskHook";
 import { NextResponse } from "next/server";
 interface Options {
   value: string;
@@ -14,7 +12,6 @@ interface Options {
 }
 
 export default function Task({
-  getValue,
   row,
   column,
   table,
@@ -23,20 +20,12 @@ export default function Task({
     label,
     value: label.toLowerCase().replace(/\W/g, ""),
   });
-  const defaultOptions = useMemo(() => {
-    return [
-      createOption("Add colors to website"),
-      createOption("Build REST"),
-      createOption("Blabla"),
-    ];
-  }, [row.original.project]);
 
   const { updateData, addRow, updateTask, task, setDataTask } = table.options
     .meta as any;
 
-  const [isLoading, setIsLoading] = useState(false);
   const [options, setOptions] = useState<options[]>(task);
-  const [taskValue, setTaskValue] = useState<Options | null | undefined>();
+  const [taskValue, setTaskValue] = useState<Options | null>();
   // const handleUpdate = (newValue: SingleValue<Options>) => {
   //   updateData(row.index, column.id, newValue);
   //   updateData(row.index, "project", "Dashboard");
@@ -58,26 +47,23 @@ export default function Task({
       NextResponse.json({ message: `id:${row.original.id}, Edited` });
     else NextResponse.json({ message: "Failed to PUT" });
   };
-  const handleCreate = (inputValue: string) => {
-    setIsLoading(true);
+
+  const handleCreate = async (inputValue: string) => {
+    const newOption = createOption(inputValue);
+    setTaskValue(newOption);
+    setOptions((prev: any) => [...prev, newOption]);
+    updateData(row.index, column.id, newOption);
+    await handleUpdate(newOption);
+
     const Row = row.index + 1;
     if (Row === table.getFilteredRowModel().rows.length) addRow();
-    setTimeout(async () => {
-      const newOption = createOption(inputValue);
-      setIsLoading(false);
-      setTaskValue(newOption);
-      setOptions((prev: any) => [...prev, newOption]);
-      updateData(row.index, column.id, newOption);
-
-      handleUpdate(newOption);
-    }, 1000);
   };
 
   const handleChange = async (newValue: SingleValue<Options>) => {
-    const Row = row.index + 1;
-    if (Row === table.getFilteredRowModel().rows.length) addRow();
     setTaskValue(newValue);
     handleUpdate(newValue);
+    const Row = row.index + 1;
+    if (Row === table.getFilteredRowModel().rows.length) addRow();
   };
   useEffect(() => {
     if (row.original.task === null || row.original.task.value === "") return;
@@ -86,7 +72,7 @@ export default function Task({
 
   return (
     <SelectInput
-      isLoading={isLoading}
+      isLoading={false}
       handleChange={handleChange}
       handleCreate={handleCreate}
       setOptions={setOptions}

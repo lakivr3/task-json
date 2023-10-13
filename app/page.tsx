@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Table from "./components/Table";
 import { ChakraBaseProvider } from "@chakra-ui/react";
 import theme from "./theme/theme";

@@ -10,7 +10,7 @@ import {
   getSortedRowModel,
 } from "@tanstack/react-table";
 import { FaSort, FaSortUp, FaSortDown } from "react-icons/fa";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, SetStateAction, useEffect, useState } from "react";
 import { Box, Button, ButtonGroup, Text } from "@chakra-ui/react";
 import EditableCell from "./EditableCell";
 import Task from "./Task";
@@ -18,7 +18,7 @@ import Done from "./Done";
 import TaskTotal from "./TaskTotal";
 import Days from "./Days";
 import { DATA, TASKS } from "@/data/data";
-import { DataType, columnFilters } from "@/types";
+import { ColumnFilters, DataType, Tasks } from "@/types";
 import Filters from "./Filters";
 import DataJSON from "@/_data/db.json";
 import ID from "./ID";
@@ -104,10 +104,10 @@ const columns: ColumnDef<DataType, any>[] = [
 ];
 
 export default function Table() {
-  const [data, setData] = useState(DataJSON.data);
-  const [newData, setNewData] = useState(DATA);
-  const [columnFilters, setColumnFilters] = useState<columnFilters[]>([]);
-  const [dataTask, setDataTask] = useState(TASKS);
+  const [data, setData] = useState<DataType[]>(DataJSON.data);
+  const [columnFilters, setColumnFilters] = useState<ColumnFilters[]>([]);
+  const [dataTask, setDataTask] = useState<Tasks[]>(TASKS);
+
   const handleUpdate = async () => {
     const newRow: DataType = {
       id: DataJSON.data.length + 1,
@@ -123,7 +123,9 @@ export default function Table() {
       done: false,
       tasktotal: 0,
     };
+
     setData((prev) => [...prev, newRow]);
+
     const response = await fetch(`http://localhost:4000/data`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -151,10 +153,9 @@ export default function Table() {
         setDataTask((prev) => prev.filter((task) => task.value !== value));
       },
       task: dataTask,
-      setDataTask: (value: any) => {
+      setDataTask: (value: SetStateAction<Tasks[]>) => {
         setDataTask(value);
       },
-      newData: newData,
 
       updateData: (
         rowIndex: number | string,

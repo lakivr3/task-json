@@ -13,12 +13,9 @@ export default function SelectInput({
   taskValue,
   setOptions,
 }: SelectProps) {
-  const { container, control, input, option, placeholder, singleValue } =
-    taskstyles;
-
   return (
     <CreatableSelect
-      styles={{ container, control, input, option, placeholder, singleValue }}
+      styles={taskstyles}
       theme={theme}
       isClearable
       isDisabled={isLoading}

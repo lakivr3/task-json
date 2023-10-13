@@ -1,4 +1,4 @@
-import { DataType } from "@/types";
+import { DataType, Tasks } from "@/types";
 
 const createOption = (label: string) => ({
   label,
@@ -10,7 +10,7 @@ const defaultOptions = [
   createOption("Blabla"),
 ];
 
-const TASKS = defaultOptions;
+const TASKS: Tasks[] = defaultOptions;
 
 const DATA = [
   {
