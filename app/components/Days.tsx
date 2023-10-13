@@ -29,37 +29,24 @@ export default function Days({
   const onBlur = async () => {
     const parseValue = parseInt(value);
 
-    if (!isNaN(parseValue)) {
-      updateData(row.index, column.id, parseValue);
+    updateData(row.index, column.id, value === "" ? 0 : parseValue);
 
+    if (!isNaN(parseValue)) {
       const response = await fetch(
         `http://localhost:4000/data/${row.original.id}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            [`${column.id}`]: parseValue,
+            [`${column.id}`]: value === "" ? 0 : parseValue,
+            tasktotal: row.original.tasktotal,
           }),
         }
       );
       if (response.ok)
         NextResponse.json({ message: `id:${row.original.id}, Edited` });
       else NextResponse.json({ message: "Failed to PUT" });
-      updateData(row.index, column.id, parseValue);
-    } else if (value === "") {
-      updateData(row.index, column.id, 0);
-
-      const response0 = await fetch(
-        `http://localhost:4000/data/${row.original.id}`,
-        {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ [`${column.id}`]: 0 }),
-        }
-      );
-      if (response0.ok)
-        NextResponse.json({ message: `id:${row.original.id}, Edited` });
-      else NextResponse.json({ message: "Failed to PUT" });
+      updateData(row.index, "tasktotal", row.original.tasktotal);
     }
   };
 

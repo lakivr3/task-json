@@ -176,6 +176,7 @@ export default function Table() {
       addRow: () => handleUpdate(),
     },
   });
+
   useEffect(() => {
     const map = data.map((array: DataType) => array.task?.value);
     const filter = TASKS.filter(

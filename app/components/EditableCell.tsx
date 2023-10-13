@@ -2,7 +2,7 @@
 import { DataType } from "@/types";
 import { Input } from "@chakra-ui/react";
 import { CellContext } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NextResponse } from "next/server";
 
 export default function EditableCell({
@@ -30,6 +30,9 @@ export default function EditableCell({
       NextResponse.json({ message: `id:${row.original.id}, Edited` });
     else NextResponse.json({ message: "Failed to PUT" });
   };
+  useEffect(() => {
+    setValue(row.original.project);
+  }, [row.original.project]);
 
   return (
     <Input

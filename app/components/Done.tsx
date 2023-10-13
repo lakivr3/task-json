@@ -4,12 +4,7 @@ import { CellContext } from "@tanstack/react-table";
 import { NextResponse } from "next/server";
 import { useState } from "react";
 
-export default function Done({
-  getValue,
-  table,
-  row,
-  column,
-}: CellContext<DataType, any>) {
+export default function Done({ getValue, row }: CellContext<DataType, any>) {
   const initialValue = getValue();
   const [value, setValue] = useState(initialValue);
   const onChange = async () => {
