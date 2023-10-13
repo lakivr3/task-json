@@ -48,6 +48,7 @@ export default function Days({
       if (response.ok)
         NextResponse.json({ message: `id:${row.original.id}, Edited` });
       else NextResponse.json({ message: "Failed to PUT" });
+      updateData(row.index, column.id, parseValue);
     } else if (value === "") {
       updateData(row.index, column.id, 0);
 
@@ -64,14 +65,6 @@ export default function Days({
       else NextResponse.json({ message: "Failed to PUT" });
       console.log(total);
     }
-    const filter =
-      total[row.index].mon +
-      total[row.index].tue +
-      total[row.index].wed +
-      total[row.index].thu +
-      total[row.index].fri +
-      total[row.index].sat +
-      total[row.index].sun;
   };
 
   if (row.original.project === "") return;

@@ -27,14 +27,6 @@ export default function TaskTotal({
     );
   }, [row]);
 
-  const initialValue = getValue();
-  const { updateData } = table.options.meta as any;
-  const [value, setValue] = useState(total);
-
-  useEffect(() => {
-    updateData(column.id, row.index, total);
-  }, [total]);
-
   if (row.original.project === "") return;
   else return <span>{total}</span>;
 }

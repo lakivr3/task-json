@@ -42,6 +42,10 @@ export default function Task({
   //   updateData(row.index, "project", "Dashboard");
   // };
   const handleUpdate = async (newValue: SingleValue<Options>) => {
+    updateData(row.index, "project", "Dashboard");
+    updateData(row.index, column.id, newValue);
+    updateTask(taskValue?.value);
+
     const response = await fetch(
       `http://localhost:4000/data/${row.original.id}`,
       {
@@ -70,21 +74,11 @@ export default function Task({
   };
 
   const handleChange = async (newValue: SingleValue<Options>) => {
+    const Row = row.index + 1;
+    if (Row === table.getFilteredRowModel().rows.length) addRow();
     setTaskValue(newValue);
     handleUpdate(newValue);
-
-    const Row = row.index + 1;
-    // if (Row === table.getFilteredRowModel().rows.length) addRow();
-
-    console.log(options);
-    // console.log(row.original.task);
   };
-  // useEffect(() => {
-  //   const Row = row.index + 1;
-  //   if (Row === table.getFilteredRowModel().rows.length)
-  //     updateData(row.index, column.id, createOption(row.original.project));
-  // }, [row.original.project]);
-  // console.log(options);
   useEffect(() => {
     if (row.original.task === null || row.original.task.value === "") return;
     else setTaskValue(row.original.task);

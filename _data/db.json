@@ -9,22 +9,19 @@
       },
       "mon": 1,
       "tue": 1,
-      "wed": 11,
-      "thu": 0,
+      "wed": 1,
+      "thu": 1,
       "fri": 0,
       "sat": 0,
       "sun": 0,
-      "done": false,
+      "done": true,
       "tasktotal": 4
     },
     {
       "id": 2,
       "project": "Dashboard",
-      "task": {
-        "label": "",
-        "value": ""
-      },
-      "mon": 1,
+      "task": null,
+      "mon": 0,
       "tue": 0,
       "wed": 0,
       "thu": 0,
@@ -50,7 +47,7 @@
     },
     {
       "id": 4,
-      "project": "Dashboard",
+      "project": "",
       "task": {
         "label": "",
         "value": ""
@@ -64,23 +61,7 @@
       "sun": 0,
       "done": false,
       "tasktotal": 0
-    },
-    {
-      "project": "",
-      "task": {
-        "value": "",
-        "label": ""
-      },
-      "mon": 0,
-      "tue": 0,
-      "wed": 0,
-      "thu": 0,
-      "fri": 0,
-      "sat": 0,
-      "sun": 0,
-      "done": false,
-      "tasktotal": 0,
-      "id": 5
     }
+    
   ]
 }

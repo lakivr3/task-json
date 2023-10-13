@@ -109,22 +109,25 @@ export default function Table() {
   const [columnFilters, setColumnFilters] = useState<columnFilters[]>([]);
   const [dataTask, setDataTask] = useState(TASKS);
   const handleUpdate = async () => {
+    const newRow: DataType = {
+      id: DataJSON.data.length + 1,
+      project: "",
+      task: { value: "", label: "" },
+      mon: 0,
+      tue: 0,
+      wed: 0,
+      thu: 0,
+      fri: 0,
+      sat: 0,
+      sun: 0,
+      done: false,
+      tasktotal: 0,
+    };
+    setData((prev) => [...prev, newRow]);
     const response = await fetch(`http://localhost:4000/data`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        project: "",
-        task: { value: "", label: "" },
-        mon: 0,
-        tue: 0,
-        wed: 0,
-        thu: 0,
-        fri: 0,
-        sat: 0,
-        sun: 0,
-        done: false,
-        tasktotal: 0,
-      }),
+      body: JSON.stringify(newRow),
     });
     if (response.ok) NextResponse.json({ message: "Posted" });
     else NextResponse.json({ message: "Failed to POST" });
@@ -158,7 +161,7 @@ export default function Table() {
         columnId: number | string,
         value: number | string
       ) =>
-        setNewData((prev) =>
+        setData((prev) =>
           prev.map((row, index) =>
             index === rowIndex
               ? {
@@ -178,7 +181,7 @@ export default function Table() {
       (x: { value: string; label: string }) => !map.includes(x.value)
     );
     setDataTask(filter);
-  }, [dataTask, DataJSON.data]);
+  }, [dataTask, data]);
   return (
     <Box>
       <Filters

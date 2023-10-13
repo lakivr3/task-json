@@ -32,6 +32,9 @@ export default function EditableCell({
       NextResponse.json({ message: `id:${row.original.id}, Edited` });
     else NextResponse.json({ message: "Failed to PUT" });
   };
+  useEffect(() => {
+    setValue(row.original.project);
+  }, [row.original.project]);
 
   return (
     <Input
